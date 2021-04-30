@@ -1,0 +1,8 @@
+create database proyecto;
+
+create table camionero(curp_emp varchar(18)primary key, nombre varchar(50), edad integer, tarjeta_cir varchar(17), numcel integer);
+create table camiones(matricula varchar(7) primary key, cap_peso integer, curp_emp varchar(18), constraint FK_Curp FOREIGN KEY (curp_emp) references camionero(curp_emp));
+create table almacen(Id_alm varchar(20) primary key, direccion varchar(40), telefono varchar(10));
+create table tienda(id_tienda varchar(40) primary key, direccion varchar(40), numcel varchar(10));
+create table envio(num_rastreo integer primary key, origen varchar(40), destino varchar(40), constraint FK_idalm FOREIGN KEY (origen) references almacen(id_alm), constraint FK_idtienda FOREIGN KEY (destino) references tienda(id_tienda));
+create table viaje(num_viaje integer primary key, estado varchar(9), matricula varchar(7), num_rastreo integer, constraint FK_matricula FOREIGN KEY (matricula) references camiones(matricula),constraint FK_numrastreo FOREIGN KEY (num_rastreo) references envio(num_rastreo));

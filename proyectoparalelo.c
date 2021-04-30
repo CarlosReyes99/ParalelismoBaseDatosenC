@@ -60,12 +60,10 @@ MPI_Get_processor_name ( nombreproc,& lnombreproc ) ;
           printf("error al conectar a la base de datos");
         }
 
-		    if(resultado != NULL){
-          printf("prueba exitosa \n");
-			   }
 
 
-         }//TERMINA ENTORNO PARALELO
+
+    }//TERMINA ENTORNO PARALELO
       else
           printf("La tabla esta vacia");
 
