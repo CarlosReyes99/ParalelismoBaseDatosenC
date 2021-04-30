@@ -13,6 +13,14 @@ int opc;
 PGconn *conn;
 PGresult *resultado;
 PGresult *ress;
+void menu();
+void conexion();
+void menuconsulta();
+void menuinsertar();
+void menumodificar();
+void menueliminar();
+void reporte();
+
 
 int main(int argc, char *argv[]){
   // int id; /*IDENTIFICADOR DEL PROCESO*/
@@ -70,3 +78,204 @@ MPI_Get_processor_name ( nombreproc,& lnombreproc ) ;
     MPI_Finalize();
 	 return 0;
 }
+void menu(){//Empieza men�?- principal y conexion a la base
+
+	conn = PQsetdbLogin("localhost","5432",NULL,NULL,"camioneros","postgres","toor055");
+	//puts("Hola Mexico");
+
+	if(PQstatus(conn) != CONNECTION_BAD){
+		printf("***************************** \n");
+		printf("**HOLA, ESTAMOS CONECTADOS*** \n");
+		printf("***************************** \n");
+
+	}else
+	 printf("error al conectar a la base de datos");
+
+
+
+	printf("1.-Consultar datos \n");
+	printf("2.-Insertar datos \n");
+	printf("3.-Modificar datos \n \n");
+	printf("4.-Eliminar datos \n \n");
+	printf("5.-Reporte \n \n");
+
+	printf("Selecciona una opcion: \n");
+	scanf("%d",&opc);
+
+
+	switch(opc){
+		case 1: menuconsulta(); break;
+		case 2: menuinsertar(); break;
+		case 3: menumodificar(); break;
+		case 4: menueliminar(); break;
+		case 5: reporte();
+        default: break;
+
+	}
+
+}
+void menureg(){//Empieza men�?- de regreso
+
+	printf("\n \n ");
+	printf("***************************** \n");
+	printf("****�Que deesas hacer?******* \n");
+	printf("***************************** \n");
+
+	printf("1.-Regresar al menu \n");
+	printf("2.-Salir \n ");
+	printf("Seleccciona una opcion: \n");
+	scanf("%d",&opc);
+
+	switch(opc){
+		case 1: menu(); break;
+		case 2: printf("vuelve pronto"); break;
+	}
+}//Termina men�?- de regreso
+
+void conexion(){//Empieza conexion
+
+	conn = PQsetdbLogin("localhost","5432",NULL,NULL,"proyecto","postgres","toor055");
+	//puts("Hola Mexico");
+
+	if(PQstatus(conn) != CONNECTION_BAD){
+				printf("Hola Estamos conectados\n");
+
+	}else
+	 printf("error al conectar a la base de datos");
+
+
+ }//Termina conexion
+void menuconsulta(){//Empieza men�?- principal
+
+	printf("***************************** \n");
+	printf("***********HOLA************** \n");
+	printf("***************************** \n");
+
+	printf("1.-Camiones \n");
+	printf("2.-Viajes \n");
+	printf("3.-Almacen\n \n");
+	printf("4.-Envío \n \n");
+	printf("5.-Tienda \n \n");
+
+
+
+	printf("Selecciona una opcion: \n");
+	scanf("%d",&opc);
+
+
+	switch(opc){
+		case 1: break;
+		case 2:  break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
+
+
+
+        default: break;
+
+	}
+
+}
+void menuinsertar(){//Empieza insertar
+
+	printf("***************************** \n");
+	printf("***********HOLA************** \n");
+	printf("***************************** \n");
+
+	printf("1.-Camiones \n");
+	printf("2.-Viajes \n");
+	printf("3.-Almacen\n \n");
+	printf("4.-Envío \n \n");
+	printf("5.-Tienda \n \n");
+
+
+
+	printf("Selecciona una opcion: \n");
+	scanf("%d",&opc);
+
+
+	switch(opc){
+			case 1: break;
+			case 2:  break;
+			case 3: break;
+			case 4: break;
+			case 5: break;
+      default: break;
+
+	}
+
+}//termina insertar
+void menumodificar(){//Empieza modificar
+
+	printf("***************************** \n");
+	printf("***********HOLA************** \n");
+	printf("***************************** \n");
+
+	printf("1.-Camiones \n");
+	printf("2.-Viajes \n");
+	printf("3.-Almacen\n \n");
+	printf("4.-Envío \n \n");
+	printf("5.-Tienda \n \n");
+
+
+
+	printf("Selecciona una opcion: \n");
+	scanf("%d",&opc);
+
+
+	switch(opc){
+		case 1: break;
+		case 2:  break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
+
+
+
+        default: break;
+
+	}
+
+}//termina modificar
+void menueliminar(){//Empieza menu eliminar
+
+	printf("***************************** \n");
+	printf("***********HOLA************** \n");
+	printf("***************************** \n");
+
+	printf("1.-Camiones \n");
+	printf("2.-Viajes \n");
+	printf("3.-Almacen\n \n");
+	printf("4.-Envío \n \n");
+	printf("5.-Tienda \n \n");
+
+
+
+	printf("Selecciona una opcion: \n");
+	scanf("%d",&opc);
+
+
+	switch(opc){
+		case 1: break;
+		case 2:  break;
+		case 3: break;
+		case 4: break;
+		case 5: break;
+
+
+
+        default: break;
+
+	}
+
+}//termina menu eliminar
+void reporte(){//Empieza reporte
+
+	printf("***************************** \n");
+	printf("***********HOLA************** \n");
+	printf("***************************** \n");
+
+
+
+}//termina reporte
