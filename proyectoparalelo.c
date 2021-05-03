@@ -22,22 +22,22 @@ PGresult *ress;
 char consulta_insert[600];
 
 //Datos almacen
-char id_alm[20];
+char id_alm[21];
 //direccion
 //numcel
 
 //Reutilizables
-char numcel[10]; //se reutiliza con tienda.telefono, camionero.numcel
-char curp_emp[18]; //se reutiliza con camiones.matricula
-char direccion[40]; //Se reutiliza en tienda.direccion, almacen.direccion
-char matricula[7]; //se reutiliza en camiones.matricula y viaje.matricula
-char num_rastreo[10]; //se reutiliza en envio.num_rastreo, viaje.num_rastreo
+char numcel[11]; //se reutiliza con tienda.telefono, camionero.numcel
+char curp_emp[19]; //se reutiliza con camiones.matricula
+char direccion[41]; //Se reutiliza en tienda.direccion, almacen.direccion
+char matricula[8]; //se reutiliza en camiones.matricula y viaje.matricula
+char num_rastreo[11]; //se reutiliza en envio.num_rastreo, viaje.num_rastreo
 
 //Datos camionero
 //curp_emp
-char nombre[50];
+char nombre[51];
 int edad;
-char tarjeta_cir[17];
+char tarjeta_cir[18];
 
 
 //Datos camiones
@@ -46,18 +46,18 @@ char tarjeta_cir[17];
 //curp_emp
 
 //Datos tienda
-char id_tienda[40];
+char id_tienda[41];
 //numcel
 //direccion
 
 //Datos envio
 //num_rastreo
-char origen[40];
-char destino[40];
+char origen[41];
+char destino[41];
 
 //Datos viaje
 int num_viaje;
-char estado[40];
+char estado[41];
 
 
 
@@ -400,9 +400,49 @@ void menuinsertar(){//Empieza insertar
 
   	  }//termina evaluación de resultado
 
+      break;
+			case 2:
+      __fpurge(stdin);
+  		printf("Inserte matricula de camion (7 caracteres maximo): ");
+  		fgets(matricula,sizeof(matricula),stdin);
+
+  		printf("­\n");
+  		printf("Inserte CURP de camionero (50 caracteres maximo): ");
+      __fpurge(stdin);
+  		fgets(curp_emp,sizeof(curp_emp),stdin);
+
+  		printf("­\n");
+
+  		printf("Capacidad de peso de camion: ");
+  		scanf("%d", &cap_peso);
+
+
+
+  		printf("­\n");
+
+
+  		printf("%s", nombre);
+
+
+  	  sprintf(consulta_insert,"insert into camiones(matricula, curp_emp, cap_peso) values('%s','%s','%d')", matricula, curp_emp, cap_peso);
+
+
+  		printf("%s", consulta_insert );
+
+      resultado = PQexec(conn,consulta_insert);
+      if(resultado != NULL){//Evalúa si resultado cambia de estado
+  			printf("Se ha insertado correctamente\n");
+
+  	  }//termina evaluación de resultado
+
+
+
+
+
+
+
 
       break;
-			case 2:  break;
 			case 3: break;
 			case 4: break;
 			case 5: break;
