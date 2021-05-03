@@ -434,16 +434,42 @@ void menuinsertar(){//Empieza insertar
   			printf("Se ha insertado correctamente\n");
 
   	  }//termina evaluación de resultado
+      break;
+			case 3:
+      __fpurge(stdin);
+  		printf("Inserte el id del almacen (20 caracteres maximo): ");
+  		fgets(id_alm,sizeof(id_alm),stdin);
+
+  		printf("­\n");
+  		printf("Inserte direccion de almacen(40 caracteres maximo): ");
+      __fpurge(stdin);
+  		fgets(direccion,sizeof(direccion),stdin);
+
+  		printf("­\n");
+
+      printf("Inserte numero de telefono de almacen(10 caracteres maximo): ");
+      __fpurge(stdin);
+  		fgets(numcel,sizeof(numcel),stdin);
+
+  		printf("­\n");
 
 
 
 
 
+  	  sprintf(consulta_insert,"insert into almacen values('%s','%s','%s')", id_alm, direccion, numcel);
 
+
+  		printf("%s", consulta_insert );
+
+      resultado = PQexec(conn,consulta_insert);
+      if(resultado != NULL){//Evalúa si resultado cambia de estado
+  			printf("Se ha insertado correctamente\n");
+
+  	  }//termina evaluación de resultado
 
 
       break;
-			case 3: break;
 			case 4: break;
 			case 5: break;
       default: break;
