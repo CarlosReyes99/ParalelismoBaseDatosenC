@@ -6,3 +6,39 @@ create table almacen(Id_alm varchar(20) primary key, direccion varchar(40), tele
 create table tienda(id_tienda varchar(40) primary key, direccion varchar(40), numcel varchar(10));
 create table envio(num_rastreo integer primary key, origen varchar(40), destino varchar(40), constraint FK_idalm FOREIGN KEY (origen) references almacen(id_alm), constraint FK_idtienda FOREIGN KEY (destino) references tienda(id_tienda));
 create table viaje(num_viaje integer primary key, estado varchar(9), matricula varchar(7), num_rastreo integer, constraint FK_matricula FOREIGN KEY (matricula) references camiones(matricula),constraint FK_numrastreo FOREIGN KEY (num_rastreo) references envio(num_rastreo));
+
+
+
+
+//Insert prueba
+
+//camionero
+INSERT INTO CAMIONERO VALUES('REJC990403HCSYMR09', 'CARLOS REYES', 22, 'TARJETAPRUEBA1', '9621026925');
+INSERT INTO CAMIONERO VALUES('REJC990403HCSYMR10', 'CARLOS REYESJ', 23, 'TARJETAPRUEBA2', '9621026926');
+INSERT INTO CAMIONERO VALUES('REJC990403HCSYMR11', 'CARLOS REYESJI', 23, 'TARJETAPRUEBA3', '9621026927');
+
+//CAMIONES
+insert into camiones values('PRUEBA1', 25, 'REJC990403HCSYMR09');
+insert into camiones values('PRUEBA2', 50, 'REJC990403HCSYMR10');
+insert into camiones values('PRUEBA3', 75, 'REJC990403HCSYMR11');
+
+//ALMACEN
+INSERT INTO almacen VALUES ('ALMCHIAPAS', 'AV SAN RAMON LT 349', '9622934150');
+INSERT INTO almacen VALUES ('ALMONTERREY', 'AV SAN RAMON LT 350', '9622934151');
+INSERT INTO almacen VALUES ('ALMDISTRITOFED', 'AV SAN RAMON LT 351', '9622934152')
+
+//TIENDA
+INSERT INTO public.tienda(id_tienda, direccion, numcel) VALUES ('TIENDACHIAPAS', 'AV SAN PEDRO LT 349', '9621061737');
+INSERT INTO public.tienda(id_tienda, direccion, numcel) VALUES ('TIENDAMONTERREY', 'AV SAN PEDRO LT 350', '9621061738');
+INSERT INTO public.tienda(id_tienda, direccion, numcel) VALUES ('TIENDADISTRITOFEDERAL', 'AV SAN PEDRO LT 351', '9621061739');
+
+
+//envio
+INSERT INTO envio VALUES (123, 'ALMCHIAPAS', 'TIENDAMONTERREY');
+INSERT INTO envio VALUES (1234, 'ALMONTERREY', 'TIENDACHIAPAS');
+INSERT INTO envio VALUES (12345, 'ALMDISTRITOFED', 'TIENDACHIAPAS');
+
+//Viajes
+INSERT INTO viaje VALUES (1, 'EN ADUANA', 'PRUEBA1', '123');
+INSERT INTO viaje VALUES (2, 'ENTREGADO', 'PRUEBA2', '1234');
+INSERT INTO viaje VALUES (1, 'RETRASO 1 DIA', 'PRUEBA3', '12345');

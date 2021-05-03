@@ -9,10 +9,54 @@
 #define BUFSIZE 128
 #define TAG 0
 char tab[50], cad[100];
-int opc;
+double inicio =0.0; /*TIEMPO INICIO DE LA EJECUCION*/
+double fin ; /*TIEMPO FINAL DE LA EJECUCION*/
+int opc, i, j;
 PGconn *conn;
 PGresult *resultado;
 PGresult *ress;
+
+//Datos almacen
+char id_alm[20];
+//direccion
+//numcel
+
+//Reutilizables
+char numcel[10]; //se reutiliza con tienda.telefono, camionero.numcel
+char curp_emp[18]; //se reutiliza con camiones.matricula
+char direccion[40]; //Se reutiliza en tienda.direccion, almacen.direccion
+char matricula[7]; //se reutiliza en camiones.matricula y viaje.matricula
+char num_rastreo[10]; //se reutiliza en envio.num_rastreo, viaje.num_rastreo
+
+//Datos camionero
+//curp_emp
+char nombre[50];
+int edad;
+char tarjeta_cir[17];
+
+
+//Datos camiones
+//matricula
+ int cap_peso;
+//curp_emp
+
+//Datos tienda
+char id_tienda[40];
+//numcel
+//direccion
+
+//Datos envio
+//num_rastreo
+char origen[40];
+char destino[40];
+
+//Datos viaje
+int num_viaje;
+char estado[40];
+
+
+
+
 void menu();
 void conexion();
 void menuconsulta();
@@ -20,6 +64,7 @@ void menuinsertar();
 void menumodificar();
 void menueliminar();
 void reporte();
+
 
 
 int main(int argc, char *argv[]){
@@ -41,8 +86,7 @@ int main(int argc, char *argv[]){
 int numNucleos; /*NUMERO DE PROCESOS*/
 char nombreproc [MPI_MAX_PROCESSOR_NAME]; /*NOMBRE PROCESADOR*/
 int lnombreproc; /*LONGITUD NOMBRE PROCESADOR*/
-double tmpinic =0.0; /*TIEMPO INICIO DE LA EJECUCION*/
-double tmpfin ; /*TIEMPO FINAL DE LA EJECUCION*/
+
 
 /*INICIALIZAMOS EL ENTORNO DE EJECUCION MPI en paralelo*/
 MPI_Init(&argc,&argv); //MPI_Init es una función que viene en la libreria mpi.h
@@ -59,14 +103,9 @@ MPI_Get_processor_name ( nombreproc,& lnombreproc ) ;
     if(id==0){//EMPIEZA ENTORNO PARALELO
         fprintf(stdout,"\nProceso %d en el procesador: %s --->Encargado de la E/S\n", id , nombreproc) ;
         printf("Numero Procesos: %d\n",numNucleos);
-	      conn=PQsetdbLogin("localhost","5432",NULL,NULL,"proyecto","postgres","toor055");
 
-        if(PQstatus(conn) != CONNECTION_BAD){
-      				printf("Hola Estamos conectados\n");
+        menu();
 
-      	}else{
-          printf("error al conectar a la base de datos");
-        }
 
 
 
@@ -80,7 +119,7 @@ MPI_Get_processor_name ( nombreproc,& lnombreproc ) ;
 }
 void menu(){//Empieza men�?- principal y conexion a la base
 
-	conn = PQsetdbLogin("localhost","5432",NULL,NULL,"camioneros","postgres","toor055");
+	conn = PQsetdbLogin("localhost","5432",NULL,NULL,"proyecto","postgres","toor055");
 	//puts("Hola Mexico");
 
 	if(PQstatus(conn) != CONNECTION_BAD){
@@ -151,11 +190,12 @@ void menuconsulta(){//Empieza men�?- principal
 	printf("***********HOLA************** \n");
 	printf("***************************** \n");
 
-	printf("1.-Camiones \n");
-	printf("2.-Viajes \n");
-	printf("3.-Almacen\n \n");
-	printf("4.-Envío \n \n");
-	printf("5.-Tienda \n \n");
+  printf("1.-Camioneros \n");
+	printf("2.-Camiones \n");
+	printf("3.-Almacen \n");
+	printf("4.-Tienda \n");
+	printf("5.-Envios \n");
+	printf("6.-Viaje  \n \n");
 
 
 
@@ -164,18 +204,133 @@ void menuconsulta(){//Empieza men�?- principal
 
 
 	switch(opc){
-		case 1: break;
-		case 2:  break;
-		case 3: break;
-		case 4: break;
-		case 5: break;
+		case 1:
+    inicio=MPI_Wtime();
+    printf("Haremos una impresion de prueba para ver cuánto tarda\n" );
+    resultado = PQexec(conn, "select * from camionero");
+  	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
+  	if(resultado != NULL){//Empieza ejecucion consulta
+  		printf("Imprimiendo los valores de la tabla camionero \n");
+  		for (i = 0; i < PQntuples(resultado); i++){ //filas
+  					 for (j = 0; j < PQnfields(resultado); j++){//columnas
+  								printf("%s\t",PQgetvalue(resultado,i,j));
+  					 }//columnas
+  							printf("\n");
+  	  }//filas
+    }//Termina ejecucion consulta
+
+
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
 
 
 
-        default: break;
+    break;
+		case 2:
+    inicio=MPI_Wtime();
+    printf("Haremos una impresion de prueba para ver cuánto tarda\n" );
+    resultado = PQexec(conn, "select * from camiones");
+  	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
+  	if(resultado != NULL){//Empieza ejecucion consulta
+  		printf("Imprimiendo los valores de la tabla camiones \n");
+  		for (i = 0; i < PQntuples(resultado); i++){ //filas
+  					 for (j = 0; j < PQnfields(resultado); j++){//columnas
+  								printf("%s\t",PQgetvalue(resultado,i,j));
+  					 }//columnas
+  							printf("\n");
+  	  }//filas
+    }//Termina ejecucion consulta
 
-	}
 
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+
+    break;
+		case 3:
+    inicio=MPI_Wtime();
+    printf("Haremos una impresion de prueba para ver cuánto tarda\n" );
+    resultado = PQexec(conn, "select * from almacen");
+  	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
+  	if(resultado != NULL){//Empieza ejecucion consulta
+  		printf("Imprimiendo los valores de la tabla almacen \n");
+  		for (i = 0; i < PQntuples(resultado); i++){ //filas
+  					 for (j = 0; j < PQnfields(resultado); j++){//columnas
+  								printf("%s\t",PQgetvalue(resultado,i,j));
+  					 }//columnas
+  							printf("\n");
+  	  }//filas
+    }//Termina ejecucion consulta
+
+
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+    break;
+		case 4:
+    inicio=MPI_Wtime();
+    printf("Haremos una impresion de prueba para ver cuánto tarda\n" );
+    resultado = PQexec(conn, "select * from tienda");
+  	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
+  	if(resultado != NULL){//Empieza ejecucion consulta
+  		printf("Imprimiendo los valores de la tabla tienda \n");
+  		for (i = 0; i < PQntuples(resultado); i++){ //filas
+  					 for (j = 0; j < PQnfields(resultado); j++){//columnas
+  								printf("%s\t",PQgetvalue(resultado,i,j));
+  					 }//columnas
+  							printf("\n");
+  	  }//filas
+    }//Termina ejecucion consulta
+
+
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+    break;
+		case 5:
+    inicio=MPI_Wtime();
+    printf("Haremos una impresion de prueba para ver cuánto tarda\n" );
+    resultado = PQexec(conn, "select * from envio");
+  	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
+  	if(resultado != NULL){//Empieza ejecucion consulta
+  		printf("Imprimiendo los valores de la tabla Envio \n");
+  		for (i = 0; i < PQntuples(resultado); i++){ //filas
+  					 for (j = 0; j < PQnfields(resultado); j++){//columnas
+  								printf("%s\t",PQgetvalue(resultado,i,j));
+  					 }//columnas
+  							printf("\n");
+  	  }//filas
+    }//Termina ejecucion consulta
+
+
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+    break;
+    case 6:
+    inicio=MPI_Wtime();
+    printf("Haremos una impresion de prueba para ver cuánto tarda\n" );
+    resultado = PQexec(conn, "select * from viaje");
+  	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
+  	if(resultado != NULL){//Empieza ejecucion consulta
+  		printf("Imprimiendo los valores de la tabla viaje \n");
+  		for (i = 0; i < PQntuples(resultado); i++){ //filas
+  					 for (j = 0; j < PQnfields(resultado); j++){//columnas
+  								printf("%s\t",PQgetvalue(resultado,i,j));
+  					 }//columnas
+  							printf("\n");
+  	  }//filas
+    }//Termina ejecucion consulta
+
+
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+
+    break;
+
+
+
+        default: menureg();
+         break;
+
+	}//termina switch
+  menureg();
 }
 void menuinsertar(){//Empieza insertar
 
@@ -196,7 +351,11 @@ void menuinsertar(){//Empieza insertar
 
 
 	switch(opc){
-			case 1: break;
+			case 1:
+
+
+
+      break;
 			case 2:  break;
 			case 3: break;
 			case 4: break;
