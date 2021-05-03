@@ -6,6 +6,10 @@
 #include <time.h>
 #include <libpq-fe.h>
 #include<fcntl.h>
+#include <stdio_ext.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #define BUFSIZE 128
 #define TAG 0
 char tab[50], cad[100];
@@ -15,6 +19,7 @@ int opc, i, j;
 PGconn *conn;
 PGresult *resultado;
 PGresult *ress;
+char consulta_insert[600];
 
 //Datos almacen
 char id_alm[20];
@@ -338,11 +343,12 @@ void menuinsertar(){//Empieza insertar
 	printf("***********HOLA************** \n");
 	printf("***************************** \n");
 
-	printf("1.-Camiones \n");
-	printf("2.-Viajes \n");
-	printf("3.-Almacen\n \n");
-	printf("4.-Envío \n \n");
-	printf("5.-Tienda \n \n");
+  printf("1.-Camioneros \n");
+	printf("2.-Camiones \n");
+	printf("3.-Almacen \n");
+	printf("4.-Tienda \n");
+	printf("5.-Envios \n");
+	printf("6.-Viaje  \n \n");
 
 
 
@@ -352,7 +358,47 @@ void menuinsertar(){//Empieza insertar
 
 	switch(opc){
 			case 1:
+      __fpurge(stdin);
+  		printf("Inserte CURP de camionero (18 caracteres maximo): ");
+  		fgets(curp_emp,sizeof(curp_emp),stdin);
 
+  		printf("­\n");
+  		printf("Inserte nombre (50 caracteres maximo): ");
+      __fpurge(stdin);
+  		fgets(nombre,sizeof(nombre),stdin);
+
+  		printf("­\n");
+
+  		printf("Edad: ");
+  		scanf("%d", &edad);
+
+
+  		printf("­\n");
+      __fpurge(stdin);
+  		printf("Tarjeta de circulacion (17 caracteres maximo): ");
+  		fgets(tarjeta_cir,sizeof(tarjeta_cir),stdin);
+
+      printf("­\n");
+      printf("Inserte telefono (10 caracteres maximo): ");
+      __fpurge(stdin);//BORRA EL CONTENIDO DEL BUFFER DE STDIN*/
+      fgets(numcel,sizeof(numcel),stdin);
+
+  		printf("­\n");
+
+
+  		printf("%s", nombre);
+
+
+  	  sprintf(consulta_insert,"insert into camionero values('%s','%s','%d','%s','%s')", curp_emp, nombre, edad, tarjeta_cir, numcel);
+
+
+  		printf("%s", consulta_insert );
+
+      resultado = PQexec(conn,consulta_insert);
+      if(resultado != NULL){//Evalúa si resultado cambia de estado
+  			printf("Se ha insertado correctamente\n");
+
+  	  }//termina evaluación de resultado
 
 
       break;
