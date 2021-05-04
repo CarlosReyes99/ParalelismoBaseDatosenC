@@ -52,6 +52,7 @@ char id_tienda[41];
 
 //Datos envio
 //num_rastreo
+int volumen;
 char origen[41];
 char destino[41];
 
@@ -340,7 +341,7 @@ void menuconsulta(){//Empieza men�?- principal
 void menuinsertar(){//Empieza insertar
 
 	printf("***************************** \n");
-	printf("***********HOLA************** \n");
+	printf("******HOLA MENU INSERTA****** \n");
 	printf("***************************** \n");
 
   printf("1.-Camioneros \n");
@@ -358,6 +359,7 @@ void menuinsertar(){//Empieza insertar
 
 	switch(opc){
 			case 1:
+      inicio=MPI_Wtime();
       __fpurge(stdin);
   		printf("Inserte CURP de camionero (18 caracteres maximo): ");
   		fgets(curp_emp,sizeof(curp_emp),stdin);
@@ -400,8 +402,11 @@ void menuinsertar(){//Empieza insertar
 
   	  }//termina evaluación de resultado
 
+      fin=MPI_Wtime();
+      printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
       break;
 			case 2:
+      inicio=MPI_Wtime();
       __fpurge(stdin);
   		printf("Inserte matricula de camion (7 caracteres maximo): ");
   		fgets(matricula,sizeof(matricula),stdin);
@@ -434,8 +439,11 @@ void menuinsertar(){//Empieza insertar
   			printf("Se ha insertado correctamente\n");
 
   	  }//termina evaluación de resultado
+      fin=MPI_Wtime();
+      printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
       break;
 			case 3:
+      inicio=MPI_Wtime();
       __fpurge(stdin);
   		printf("Inserte el id del almacen (20 caracteres maximo): ");
   		fgets(id_alm,sizeof(id_alm),stdin);
@@ -450,16 +458,8 @@ void menuinsertar(){//Empieza insertar
       printf("Inserte numero de telefono de almacen(10 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(numcel,sizeof(numcel),stdin);
-
   		printf("­\n");
-
-
-
-
-
   	  sprintf(consulta_insert,"insert into almacen values('%s','%s','%s')", id_alm, direccion, numcel);
-
-
   		printf("%s", consulta_insert );
 
       resultado = PQexec(conn,consulta_insert);
@@ -468,26 +468,138 @@ void menuinsertar(){//Empieza insertar
 
   	  }//termina evaluación de resultado
 
+      fin=MPI_Wtime();
+      printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+      break;
+			case 4:
+      inicio=MPI_Wtime();
+      __fpurge(stdin);
+  		printf("Inserte el id de la tienda (20 caracteres maximo): ");
+  		fgets(id_tienda,sizeof(id_tienda),stdin);
+
+  		printf("­\n");
+  		printf("Inserte direccion de almacen(40 caracteres maximo): ");
+      __fpurge(stdin);
+  		fgets(direccion,sizeof(direccion),stdin);
+
+  		printf("­\n");
+
+      printf("Inserte numero de telefono de tienda(10 caracteres maximo): ");
+      __fpurge(stdin);
+  		fgets(numcel,sizeof(numcel),stdin);
+  		printf("­\n");
+  	  sprintf(consulta_insert,"insert into tienda values('%s','%s','%s')", id_tienda, direccion, numcel);
+  		printf("%s", consulta_insert );
+
+      resultado = PQexec(conn,consulta_insert);
+      if(resultado != NULL){//Evalúa si resultado cambia de estado
+  			printf(" \n Se ha insertado correctamente\n");
+
+  	  }//termina evaluación de resultado
+      fin=MPI_Wtime();
+      printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
 
       break;
-			case 4: break;
-			case 5: break;
+			case 5:
+      inicio=MPI_Wtime();
+      resultado = PQexec(conn, "select * from envio");
+    	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
+    	if(resultado != NULL){//Empieza ejecucion consulta
+    		printf("Imprimiendo los valores de la tabla Envio \n");
+    		for (i = 0; i < PQntuples(resultado); i++){ //filas
+    					 for (j = 0; j < PQnfields(resultado); j++){//columnas
+    								printf("%s\t",PQgetvalue(resultado,i,j));
+    					 }//columnas
+    							printf("\n");
+    	  }//filas
+      }//Termina ejecucion consulta
+      __fpurge(stdin);
+  		printf("Inserte el numero de rastreo (10 caracteres maximo): ");
+  		fgets(num_rastreo,sizeof(num_rastreo),stdin);
+
+  		printf("­\n");
+  		printf("Inserte origen(40 caracteres maximo y debe ser almacen): ");
+      __fpurge(stdin);
+  		fgets(origen,sizeof(origen),stdin);
+
+  		printf("­\n");
+
+      printf("Inserte destino y debe ser tienda(40 caracteres maximo): ");
+      __fpurge(stdin);
+  		fgets(destino,sizeof(destino),stdin);
+  		printf("­\n");
+
+      printf("Capacidad de peso de camion: ");
+  		scanf("%d", &volumen);
+
+  	  sprintf(consulta_insert,"insert into envio values('%s','%s','%s', '%d')", num_rastreo, origen, destino, volumen);
+  		printf("%s", consulta_insert );
+
+      resultado = PQexec(conn,consulta_insert);
+      if(resultado != NULL){//Evalúa si resultado cambia de estado
+  			printf(" \n Se ha insertado correctamente\n");
+
+  	  }//termina evaluación de resultado
+
+
+      fin=MPI_Wtime();
+      printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+
+      break;
+
+      case 6:
+
+      inicio=MPI_Wtime();
+  		printf("­\n");
+  		printf("Inserte estado del viaje (Donde se encuentra y el estado en general): ");
+      __fpurge(stdin);
+  		fgets(estado,sizeof(estado),stdin);
+
+  		printf("­\n");
+
+      printf("Inserte matricula de camion que lo lleva: ");
+      __fpurge(stdin);
+  		fgets(matricula,sizeof(matricula),stdin);
+  		printf("­\n");
+
+      printf("Inserte numero de rastreo del paquete: ");
+      __fpurge(stdin);
+      fgets(num_rastreo,sizeof(num_rastreo),stdin);
+      printf("­\n");
+
+
+
+  	  sprintf(consulta_insert,"insert into viajes values(%s','%s', '%s')", estado, matricula, num_rastreo);
+  		printf("%s", consulta_insert );
+
+      resultado = PQexec(conn,consulta_insert);
+      if(resultado != NULL){//Evalúa si resultado cambia de estado
+  			printf(" \n Se ha insertado correctamente\n");
+
+  	  }//termina evaluación de resultado
+
+      fin=MPI_Wtime();
+      printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+      break;
       default: break;
 
 	}
+  menureg();
 
 }//termina insertar
 void menumodificar(){//Empieza modificar
-
+char curp_empnew[19];
+char matriculanew[8];
 	printf("***************************** \n");
 	printf("***********HOLA************** \n");
 	printf("***************************** \n");
 
-	printf("1.-Camiones \n");
-	printf("2.-Viajes \n");
-	printf("3.-Almacen\n \n");
-	printf("4.-Envío \n \n");
-	printf("5.-Tienda \n \n");
+  printf("1.-Camioneros \n");
+	printf("2.-Camiones \n");
+	printf("3.-Almacen \n");
+	printf("4.-Tienda \n");
+	printf("5.-Envios \n");
+	printf("6.-Viaje  \n \n");
 
 
 
@@ -496,8 +608,101 @@ void menumodificar(){//Empieza modificar
 
 
 	switch(opc){
-		case 1: break;
-		case 2:  break;
+		case 1:
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+    printf("Inserte CURP de camionero que desea modificar (18 caracteres maximo): ");
+    fgets(curp_emp,sizeof(curp_emp),stdin);
+
+    __fpurge(stdin);
+    printf("Inserte CURP nueva de camionero (18 caracteres maximo): ");
+    fgets(curp_empnew,sizeof(curp_empnew),stdin);
+
+    printf("­\n");
+    printf("Inserte nombre (50 caracteres maximo): ");
+    __fpurge(stdin);
+    fgets(nombre,sizeof(nombre),stdin);
+
+    printf("­\n");
+
+    printf("Edad: ");
+    scanf("%d", &edad);
+
+
+    printf("­\n");
+    __fpurge(stdin);
+    printf("Tarjeta de circulacion (17 caracteres maximo): ");
+    fgets(tarjeta_cir,sizeof(tarjeta_cir),stdin);
+
+    printf("­\n");
+    printf("Inserte telefono (10 caracteres maximo): ");
+    __fpurge(stdin);//BORRA EL CONTENIDO DEL BUFFER DE STDIN*/
+    fgets(numcel,sizeof(numcel),stdin);
+
+    printf("­\n");
+
+
+    printf("%s", nombre);
+
+    __fpurge(stdin);
+    sprintf(consulta_insert,"UPDATE camionero SET curp_emp='%s', nombre='%s', edad='%d', tarjeta_cir='%s', numcel='%s' WHERE curp_emp= '%s';", curp_empnew, nombre, edad, tarjeta_cir, numcel, curp_emp);
+
+
+    printf("%s", consulta_insert );
+
+    resultado = PQexec(conn,consulta_insert);
+    if(resultado != NULL){//Evalúa si resultado cambia de estado
+      printf("Se ha insertado correctamente\n");
+
+    }//termina evaluación de resultado
+
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+    break;
+
+
+		case 2:
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+    printf("Inserte matricula de camion que desea modificar(7 caracteres maximo): ");
+    fgets(matricula,sizeof(matricula),stdin);
+    __fpurge(stdin);
+    printf("Inserte nueva matricula de camion (7 caracteres maximo): ");
+    fgets(matriculanew,sizeof(matriculanew),stdin);
+
+    printf("­\n");
+    printf("Inserte CURP de camionero (50 caracteres maximo): ");
+    __fpurge(stdin);
+    fgets(curp_emp,sizeof(curp_emp),stdin);
+
+    printf("­\n");
+
+    printf("Capacidad de peso de camion: ");
+    scanf("%d", &cap_peso);
+
+
+
+    printf("­\n");
+
+
+    printf("%s", nombre);
+
+
+    sprintf(consulta_insert,"UPDATE camiones SET matricula='%s', curp_emp='%s', cap_peso='%d'  WHERE matricula='%s';", matriculanew, curp_emp, cap_peso, matricula);
+
+
+    printf("%s", consulta_insert );
+
+    resultado = PQexec(conn,consulta_insert);
+    if(resultado != NULL){//Evalúa si resultado cambia de estado
+      printf("Se ha insertado correctamente\n");
+
+    }//termina evaluación de resultado
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+
+
+    break;
 		case 3: break;
 		case 4: break;
 		case 5: break;
