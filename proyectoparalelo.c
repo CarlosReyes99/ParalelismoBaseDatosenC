@@ -363,11 +363,13 @@ void menuinsertar(){//Empieza insertar
       __fpurge(stdin);
   		printf("Inserte CURP de camionero (18 caracteres maximo): ");
   		fgets(curp_emp,sizeof(curp_emp),stdin);
+      curp_emp[strlen(curp_emp)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
   		printf("Inserte nombre (50 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(nombre,sizeof(nombre),stdin);
+      nombre[strlen(nombre)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
 
@@ -379,11 +381,13 @@ void menuinsertar(){//Empieza insertar
       __fpurge(stdin);
   		printf("Tarjeta de circulacion (17 caracteres maximo): ");
   		fgets(tarjeta_cir,sizeof(tarjeta_cir),stdin);
+      tarjeta_cir[strlen(tarjeta_cir)-1]='\0'; //Limpia el buffer del enter
 
       printf("­\n");
       printf("Inserte telefono (10 caracteres maximo): ");
       __fpurge(stdin);//BORRA EL CONTENIDO DEL BUFFER DE STDIN*/
       fgets(numcel,sizeof(numcel),stdin);
+      numcel[strlen(numcel)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
 
@@ -410,11 +414,13 @@ void menuinsertar(){//Empieza insertar
       __fpurge(stdin);
   		printf("Inserte matricula de camion (7 caracteres maximo): ");
   		fgets(matricula,sizeof(matricula),stdin);
+      matricula[strlen(matricula)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
   		printf("Inserte CURP de camionero (50 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(curp_emp,sizeof(curp_emp),stdin);
+      curp_emp[strlen(curp_emp)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
 
@@ -442,23 +448,30 @@ void menuinsertar(){//Empieza insertar
       fin=MPI_Wtime();
       printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
       break;
+
+
 			case 3:
       inicio=MPI_Wtime();
       __fpurge(stdin);
   		printf("Inserte el id del almacen (20 caracteres maximo): ");
   		fgets(id_alm,sizeof(id_alm),stdin);
+      id_alm[strlen(id_alm)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
   		printf("Inserte direccion de almacen(40 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(direccion,sizeof(direccion),stdin);
+      direccion[strlen(direccion)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
 
       printf("Inserte numero de telefono de almacen(10 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(numcel,sizeof(numcel),stdin);
+      numcel[strlen(numcel)-1]='\0'; //Limpia el buffer del enter
   		printf("­\n");
+
+
   	  sprintf(consulta_insert,"insert into almacen values('%s','%s','%s')", id_alm, direccion, numcel);
   		printf("%s", consulta_insert );
 
@@ -471,22 +484,28 @@ void menuinsertar(){//Empieza insertar
       fin=MPI_Wtime();
       printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
       break;
+
+
 			case 4:
       inicio=MPI_Wtime();
       __fpurge(stdin);
   		printf("Inserte el id de la tienda (20 caracteres maximo): ");
   		fgets(id_tienda,sizeof(id_tienda),stdin);
+      id_tienda[strlen(id_tienda)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
   		printf("Inserte direccion de almacen(40 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(direccion,sizeof(direccion),stdin);
+      direccion[strlen(direccion)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
 
       printf("Inserte numero de telefono de tienda(10 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(numcel,sizeof(numcel),stdin);
+      numcel[strlen(numcel)-1]='\0'; //Limpia el buffer del enter
+
   		printf("­\n");
   	  sprintf(consulta_insert,"insert into tienda values('%s','%s','%s')", id_tienda, direccion, numcel);
   		printf("%s", consulta_insert );
@@ -516,17 +535,21 @@ void menuinsertar(){//Empieza insertar
       __fpurge(stdin);
   		printf("Inserte el numero de rastreo (10 caracteres maximo): ");
   		fgets(num_rastreo,sizeof(num_rastreo),stdin);
+      num_rastreo[strlen(num_rastreo)-1]='\0'; //Limpia el buffer del enter
+
 
   		printf("­\n");
   		printf("Inserte origen(40 caracteres maximo y debe ser almacen): ");
       __fpurge(stdin);
   		fgets(origen,sizeof(origen),stdin);
+      origen[strlen(origen)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
 
       printf("Inserte destino y debe ser tienda(40 caracteres maximo): ");
       __fpurge(stdin);
   		fgets(destino,sizeof(destino),stdin);
+      destino[strlen(destino)-1]='\0'; //Limpia el buffer del enter
   		printf("­\n");
 
       printf("Cantidad de articulos de envio: ");
@@ -581,17 +604,20 @@ void menuinsertar(){//Empieza insertar
   		printf("Inserte situacion del viaje (Donde se encuentra y la circunstancia en general):");
       __fpurge(stdin);
   		fgets(estado,sizeof(estado),stdin);
+      estado[strlen(estado)-1]='\0'; //Limpia el buffer del enter
 
   		printf("­\n");
 
       printf("Inserte matricula de camion que lo lleva: ");
       __fpurge(stdin);
   		fgets(matricula,sizeof(matricula),stdin);
+      matricula[strlen(matricula)-1]='\0'; //Limpia el buffer del enter
   		printf("­\n");
 
       printf("Inserte numero de rastreo del paquete: ");
       __fpurge(stdin);
       fgets(num_rastreo,sizeof(num_rastreo),stdin);
+      num_rastreo[strlen(num_rastreo)-1]='\0'; //Limpia el buffer del enter
       printf("­\n");
 
 
@@ -623,7 +649,7 @@ char num_rastreonew[11];
 
 
 	printf("***************************** \n");
-	printf("***********HOLA************** \n");
+	printf("*****HOLA MENU MODIFICAR***** \n");
 	printf("***************************** \n");
 
   printf("1.-Camioneros \n");
@@ -645,15 +671,18 @@ char num_rastreonew[11];
     __fpurge(stdin);
     printf("Inserte CURP de camionero que desea modificar (18 caracteres maximo): ");
     fgets(curp_emp,sizeof(curp_emp),stdin);
+    curp_emp[strlen(curp_emp)-1]='\0'; //Limpia el buffer del enter
 
     __fpurge(stdin);
     printf("Inserte CURP nueva de camionero (18 caracteres maximo): ");
     fgets(curp_empnew,sizeof(curp_empnew),stdin);
+    curp_empnew[strlen(curp_empnew)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
     printf("Inserte nombre (50 caracteres maximo): ");
     __fpurge(stdin);
     fgets(nombre,sizeof(nombre),stdin);
+    nombre[strlen(nombre)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
 
@@ -665,11 +694,13 @@ char num_rastreonew[11];
     __fpurge(stdin);
     printf("Tarjeta de circulacion (17 caracteres maximo): ");
     fgets(tarjeta_cir,sizeof(tarjeta_cir),stdin);
+    tarjeta_cir[strlen(tarjeta_cir)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
     printf("Inserte telefono (10 caracteres maximo): ");
     __fpurge(stdin);//BORRA EL CONTENIDO DEL BUFFER DE STDIN*/
     fgets(numcel,sizeof(numcel),stdin);
+    numcel[strlen(numcel)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
 
@@ -698,14 +729,18 @@ char num_rastreonew[11];
     __fpurge(stdin);
     printf("Inserte matricula de camion que desea modificar(7 caracteres maximo): ");
     fgets(matricula,sizeof(matricula),stdin);
+    matricula[strlen(matricula)-1]='\0'; //Limpia el buffer del enter
+
     __fpurge(stdin);
     printf("Inserte nueva matricula de camion (7 caracteres maximo): ");
     fgets(matriculanew,sizeof(matriculanew),stdin);
+    matriculanew[strlen(matriculanew)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
     printf("Inserte CURP de camionero (50 caracteres maximo): ");
     __fpurge(stdin);
     fgets(curp_emp,sizeof(curp_emp),stdin);
+    curp_emp[strlen(curp_emp)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
 
@@ -740,21 +775,26 @@ char num_rastreonew[11];
     __fpurge(stdin);
     printf("Inserte el id del almacen que desea modificar(20 caracteres maximo): ");
     fgets(id_alm,sizeof(id_alm),stdin);
+    id_alm[strlen(id_alm)-1]='\0'; //Limpia el buffer del enter
 
     __fpurge(stdin);
     printf("Inserte el id nuevo del almacen (20 caracteres maximo): ");
     fgets(id_almnew,sizeof(id_almnew),stdin);
+    id_almnew[strlen(id_almnew)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
     printf("Inserte direccion de almacen(40 caracteres maximo): ");
     __fpurge(stdin);
     fgets(direccion,sizeof(direccion),stdin);
+    direccion[strlen(direccion)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
 
     printf("Inserte numero de telefono de almacen(10 caracteres maximo): ");
     __fpurge(stdin);
     fgets(numcel,sizeof(numcel),stdin);
+    numcel[strlen(numcel)-1]='\0'; //Limpia el buffer del enter
+
     printf("­\n");
     sprintf(consulta_insert,"UPDATE almacen SET id_alm='%s', direccion='%s', telefono='%s' WHERE id_alm= '%s';", id_almnew, direccion, numcel, id_alm);
     printf("%s", consulta_insert );
@@ -775,21 +815,27 @@ char num_rastreonew[11];
     __fpurge(stdin);
     printf("Inserte el id de la tienda que desea modificar (20 caracteres maximo): ");
     fgets(id_tienda,sizeof(id_tienda),stdin);
+    id_tienda[strlen(id_tienda)-1]='\0'; //Limpia el buffer del enter
 
     __fpurge(stdin);
     printf("Inserte el id nuevo de la tienda (20 caracteres maximo): ");
     fgets(id_tiendanew,sizeof(id_tiendanew),stdin);
+    id_tiendanew[strlen(id_tiendanew)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
     printf("Inserte direccion de almacen(40 caracteres maximo): ");
     __fpurge(stdin);
     fgets(direccion,sizeof(direccion),stdin);
+    direccion[strlen(direccion)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
 
     printf("Inserte numero de telefono de tienda(10 caracteres maximo): ");
     __fpurge(stdin);
     fgets(numcel,sizeof(numcel),stdin);
+    numcel[strlen(numcel)-1]='\0'; //Limpia el buffer del enter
+
+
     printf("­\n");
     sprintf(consulta_insert,"UPDATE tienda SET id_tienda='%s', direccion='%s', telefono='%s' WHERE id_tienda=     '%s'; ", id_tiendanew, direccion, numcel, id_tienda);
     printf("%s", consulta_insert );
@@ -823,20 +869,25 @@ char num_rastreonew[11];
     __fpurge(stdin);
     printf("Inserte el numero de rastreo que desea modificar (10 caracteres maximo): ");
     fgets(num_rastreo,sizeof(num_rastreo),stdin);
+    num_rastreo[strlen(num_rastreo)-1]='\0'; //Limpia el buffer del enter
+
     __fpurge(stdin);
     printf("Inserte el nuevo numero de rastreo (10 caracteres maximo): ");
     fgets(num_rastreonew,sizeof(num_rastreonew),stdin);
+    num_rastreonew[strlen(num_rastreonew)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
     printf("Inserte origen(40 caracteres maximo y debe ser almacen): ");
     __fpurge(stdin);
     fgets(origen,sizeof(origen),stdin);
+    origen[strlen(origen)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
 
     printf("Inserte destino y debe ser tienda(40 caracteres maximo): ");
     __fpurge(stdin);
     fgets(destino,sizeof(destino),stdin);
+    destino[strlen(destino)-1]='\0'; //Limpia el buffer del enter
     printf("­\n");
 
     printf("Cantidad de articulos de envio: ");
@@ -859,7 +910,7 @@ char num_rastreonew[11];
 
     case 6:
 
-
+    inicio=MPI_Wtime();
     resultado = PQexec(conn, "select * from viaje");
   	printf("Filas:%d, Columnas:%d \n",PQntuples(resultado),PQnfields(resultado));
   	if(resultado != NULL){//Empieza ejecucion consulta
@@ -872,7 +923,7 @@ char num_rastreonew[11];
   	  }//filas
     }//Termina ejecucion consulta
 
-    inicio=MPI_Wtime();
+
     printf("Inserte numero del viaje que desea modificar: ");
     scanf("%d", &num_viaje);
 
@@ -881,17 +932,20 @@ char num_rastreonew[11];
     printf("Inserte nueva situacion del viaje (Donde se encuentra y la circunstancia en general): ");
     __fpurge(stdin);
     fgets(estado,sizeof(estado),stdin);
+    estado[strlen(estado)-1]='\0'; //Limpia el buffer del enter
 
     printf("­\n");
 
     printf("Inserte matricula de camion que lo lleva: ");
     __fpurge(stdin);
     fgets(matricula,sizeof(matricula),stdin);
+    matricula[strlen(matricula)-1]='\0'; //Limpia el buffer del enter
     printf("­\n");
 
     printf("Inserte numero de rastreo del paquete: ");
     __fpurge(stdin);
     fgets(num_rastreo,sizeof(num_rastreo),stdin);
+    num_rastreo[strlen(num_rastreo)-1]='\0'; //Limpia el buffer del enter
     printf("­\n");
 
 
@@ -911,23 +965,24 @@ char num_rastreonew[11];
 
 
 
-        default: break;
+        default: menureg(); break;
 
 	}
 
+menureg();
 }//termina modificar
 void menueliminar(){//Empieza menu eliminar
 
-	printf("***************************** \n");
-	printf("***********HOLA************** \n");
+  printf("***************************** \n");
+	printf("*****HOLA MENU ELIMINAR****** \n");
 	printf("***************************** \n");
 
-	printf("1.-Camiones \n");
-	printf("2.-Viajes \n");
-	printf("3.-Almacen\n \n");
-	printf("4.-Envío \n \n");
-	printf("5.-Tienda \n \n");
-
+  printf("1.-Camioneros \n");
+	printf("2.-Camiones \n");
+	printf("3.-Almacen \n");
+	printf("4.-Tienda \n");
+	printf("5.-Envios \n");
+	printf("6.-Viaje  \n \n");
 
 
 	printf("Selecciona una opcion: \n");
@@ -935,17 +990,210 @@ void menueliminar(){//Empieza menu eliminar
 
 
 	switch(opc){
-		case 1: break;
-		case 2:  break;
-		case 3: break;
-		case 4: break;
-		case 5: break;
+		case 1:
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+		printf("CURP de camionero que desea eliminar(18 caracteres maximo): ");
+		fgets(curp_emp,sizeof(curp_emp),stdin);
+    curp_emp[strlen(curp_emp)-1]='\0';
 
 
 
-        default: break;
+		__fpurge(stdin);
+	  sprintf(consulta_insert,"delete from camionero where curp_emp =  '%s'; ", curp_emp);
+
+
+		printf("%s", consulta_insert );
+
+	//	Empiezo administración de sql
+
+
+
+		 resultado = PQexec(conn,consulta_insert);
+
+		if(resultado != NULL){//Empieza ejecucion consulta
+			printf("Se ha eliminado correctamente");
+						 }//columnas
+		printf("\n");
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+    break;
+
+
+		case 2:
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+		printf("Matricula de camion que desea eliminar(7 caracteres maximo): ");
+		fgets(matricula,sizeof(matricula),stdin);
+    matricula[strlen(matricula)-1]='\0';
+
+
+
+		__fpurge(stdin);
+	  sprintf(consulta_insert,"delete from camiones where matricula =  '%s'; ", matricula);
+
+
+		printf("%s", consulta_insert );
+
+	//	Empiezo administración de sql
+
+
+
+		 resultado = PQexec(conn,consulta_insert);
+
+		if(resultado != NULL){//Empieza ejecucion consulta
+			printf("Se ha eliminado correctamente");
+						 }
+		printf("\n");
+
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+    break;
+
+
+
+
+		case 3:
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+		printf("Id de almacen que desea eliminar(20 caracteres maximo): ");
+		fgets(id_alm,sizeof(id_alm),stdin);
+    id_alm[strlen(id_alm)-1]='\0'; //ELIMINA EL BUFFER DE ENTER
+
+
+
+		__fpurge(stdin);
+	  sprintf(consulta_insert,"delete from almacen \n where id_alm = '%s'; ", id_alm);
+
+
+		printf("%s", consulta_insert );
+
+	//	Empiezo administración de sql
+
+
+
+		 resultado = PQexec(conn,consulta_insert);
+
+		if(resultado != NULL){//Empieza ejecucion consulta
+			printf("Se ha eliminado correctamente");
+						 }//columnas
+
+    printf("\n");
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+
+
+    break;
+
+		case 4:
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+		printf("Id de tienda que desea eliminar(40 caracteres maximo): ");
+		fgets(id_tienda,sizeof(id_tienda),stdin);
+    id_tienda[strlen(id_tienda)-1]='\0'; //ELIMINA EL BUFFER DE ENTER
+
+
+
+		__fpurge(stdin);
+	  sprintf(consulta_insert,"delete from tienda where id_tienda = '%s';", id_tienda);
+
+
+		printf("%s", consulta_insert );
+
+	//	Empiezo administración de sql
+
+
+
+		 resultado = PQexec(conn,consulta_insert);
+
+		if(resultado != NULL){//Empieza ejecucion consulta
+			printf("Se ha eliminado correctamente");
+						 }//columnas
+
+    printf("\n");
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+
+    break;
+
+
+
+		case 5:
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+		printf("Guia de rastreo que desea eliminar(10 caracteres maximo): ");
+		fgets(num_rastreo,sizeof(num_rastreo),stdin);
+    num_rastreo[strlen(num_rastreo)-1]='\0'; //ELIMINA EL BUFFER DE ENTER
+
+
+
+		__fpurge(stdin);
+	  sprintf(consulta_insert,"delete from envio where num_rastreo = '%s';", num_rastreo);
+
+
+		printf("%s", consulta_insert );
+
+	//	Empiezo administración de sql
+
+
+
+		 resultado = PQexec(conn,consulta_insert);
+
+		if(resultado != NULL){//Empieza ejecucion consulta
+			printf("Se ha eliminado correctamente");
+						 }//columnas
+
+    printf("\n");
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+    break;
+
+
+    case 6:
+
+    inicio=MPI_Wtime();
+    __fpurge(stdin);
+		printf("Numero de viaje que desea eliminar: ");
+		scanf("%d",&num_viaje );
+
+
+
+		__fpurge(stdin);
+	  sprintf(consulta_insert,"delete from envio where num_rastreo = '%d';", num_viaje);
+
+
+		printf("%s", consulta_insert );
+
+	//	Empiezo administración de sql
+
+
+
+		 resultado = PQexec(conn,consulta_insert);
+
+		if(resultado != NULL){//Empieza ejecucion consulta
+			printf("Se ha eliminado correctamente");
+						 }//columnas
+
+    printf("\n");
+    fin=MPI_Wtime();
+    printf("Tiempo Procesamiento: %f\n\n",fin-inicio);
+
+
+
+
+
+
+
+
+    break;
+
+
+
+        default: menureg();
+        break;
 
 	}
+  menureg();
 
 }//termina menu eliminar
 void reporte(){//Empieza reporte
